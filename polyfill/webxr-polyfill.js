@@ -36500,15 +36500,15 @@ host this content on a secure origin for the best user experience.
                 const DEFAULT_HEADSET_POSITION = [0, 1.6, 0];
                 const DIV_Z_INDEX = '9999';
                 const DOM_OVERLAY_Z_INDEX = '10001';
-                const DEFAULT_RESOLUTION = {width: 1024, height: 2048};
-                const DEFAULT_DEVICE_SIZE = {width: 0.05, height: 0.1, depth: 0.005};
+                const DEFAULT_RESOLUTION = { width: 1024, height: 2048 };
+                const DEFAULT_DEVICE_SIZE = { width: 0.05, height: 0.1, depth: 0.005 };
                 const dispatchCustomEvent = (type, detail) => {
                   window.dispatchEvent(new CustomEvent(type, {
                     detail: typeof cloneInto !== 'undefined' ? cloneInto(detail, window) : detail
                   }));
                 };
                 class EmulatedXRDevice extends XRDevice {
-                  constructor(global, config={}) {
+                  constructor(global, config = {}) {
                     super(global);
                     this.sessions = new Map();
                     this.modes = config.modes || DEFAULT_MODES;
@@ -36578,7 +36578,7 @@ host this content on a secure origin for the best user experience.
                     if (this.features.includes(featureDescriptor)) {
                       return true;
                     }
-                    switch(featureDescriptor) {
+                    switch (featureDescriptor) {
                       case 'viewer': return true;
                       case 'local': return true;
                       case 'local-floor': return true;
@@ -36589,7 +36589,7 @@ host this content on a secure origin for the best user experience.
                     }
                   }
                   async requestSession(mode, enabledFeatures) {
-                    if(!this.isSessionSupported(mode)) {
+                    if (!this.isSessionSupported(mode)) {
                       return Promise.reject();
                     }
                     const immersive = mode === 'immersive-vr' || mode === 'immersive-ar';
@@ -36648,9 +36648,9 @@ host this content on a secure origin for the best user experience.
                       const currentClearDepth = context.getParameter(context.DEPTH_CLEAR_VALUE);
                       const currentClearStencil = context.getParameter(context.STENCIL_CLEAR_VALUE);
                       context.clearColor(0.0, 0.0, 0.0, 0.0);
-                      context.clearDepth(1,0);
+                      context.clearDepth(1, 0);
                       context.clearStencil(0.0);
-                      context.clear(context.DEPTH_BUFFER_BIT | context.COLOR_BUFFER_BIT | context.STENCIL_BUFFER_BIT );
+                      context.clear(context.DEPTH_BUFFER_BIT | context.COLOR_BUFFER_BIT | context.STENCIL_BUFFER_BIT);
                       context.clearColor(currentClearColor[0], currentClearColor[1], currentClearColor[2], currentClearColor[3]);
                       context.clearDepth(currentClearDepth);
                       context.clearStencil(currentClearStencil);
@@ -36811,7 +36811,7 @@ host this content on a secure origin for the best user experience.
                   }
                   getProjectionMatrix(eye) {
                     return this.arDevice || eye === 'none' ? this.projectionMatrix :
-                           eye === 'left' ? this.leftProjectionMatrix : this.rightProjectionMatrix;
+                      eye === 'left' ? this.leftProjectionMatrix : this.rightProjectionMatrix;
                   }
                   getBasePoseMatrix() {
                     return this.matrix;
@@ -36929,8 +36929,8 @@ host this content on a secure origin for the best user experience.
                     const dy = matrix[13] / (this.deviceSize.height * 0.5);
                     const dz = matrix[14];
                     return dx <= 1.0 && dx >= -1.0 &&
-                           dy <= 1.0 && dy >= -1.0 &&
-                           dz <= 0.01 && dz >= 0.0;
+                      dy <= 1.0 && dy >= -1.0 &&
+                      dz <= 0.01 && dz >= 0.0;
                   }
                   _getTouchCoordinates() {
                     const pose = this.gamepads[0].pose;
@@ -37006,6 +37006,7 @@ host this content on a secure origin for the best user experience.
                     });
                   }
                   _notifyEnterImmersive() {
+                    this.div.setAttribute('id', 'webxr-container');
                     dispatchCustomEvent('device-enter-immersive', {});
                   }
                   _notifyLeaveImmersive() {
