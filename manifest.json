@@ -13,29 +13,44 @@
     "128": "icons/icon128.png"
   },
   "background": {
-    "scripts": ["src/extension/background.js"]
+    "service_worker": "src/extension/background.js",
+    "type": "module"
   },
   "permissions": [
-    "file://*/*",
-    "http://*/*",
-    "https://*/*",
     "storage"
   ],
-  "content_scripts": [{
-    "matches": [
-      "file://*/*",
-      "http://*/*",
-      "https://*/*"
-    ],
-    "js": [
-      "polyfill/webxr-polyfill.js",
-      "src/ConfigurationManager.js",
-      "src/extension/content-script.js"
-    ],
-    "run_at": "document_start",
-    "all_frames": true
-  }],
-  "browser_action": {
+  "host_permissions": [
+    "file://*/*",
+    "https://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "file://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "polyfill/webxr-polyfill.js",
+        "src/injector.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "file://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "src/ConfigurationManager.js",
+        "src/extension/content-script.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "action": {
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -44,9 +59,17 @@
     "default_title": "WebXR API Emulator",
     "default_popup": "src/extension/popup.html"
   },
-  "manifest_version": 2,
+  "manifest_version": 3,
   "web_accessible_resources": [
-    "src/devices.json",
-    "assets/hall_empty.glb"
+    {
+      "resources": [
+        "src/devices.json",
+        "assets/hall_empty.glb"
+      ],
+      "matches": [
+        "file://*/*",
+        "https://*/*"
+      ]
+    }
   ]
 }

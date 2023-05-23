@@ -97,52 +97,6 @@ window.addEventListener('webxr-virtual-room-request', event => {
   });
 }, false);
 
-window.addEventListener('device-enter-immersive', async event => {
-  console.log(event);
-  console.log(document.body.querySelector('#webxr-container'));
-  const webxrContainer = await getWebxrContainer();
-  webxrContainer.style.display = 'none';
-  const video = document.createElement('video');
-  video.style = `border: 1px solid red;`;
-  video.controls = true;
-  video.autoplay = true;
-  video.srcObject = webxrContainer.querySelector('canvas').captureStream(30);
-  document.body.appendChild(video);
-});
-function getWebxrContainer() {
-  return new Promise(function (resolve, reject) {
-      (function waitForFoo(){
-          const e = document.body.querySelector('#webxr-container');
-          if (e != null) return resolve(e);
-          setTimeout(waitForFoo, 30);
-      })();
-  });
-}
-
-
-
-// function to load script in a web page
-
-const loadScript = source => {
-  const script = document.createElement('script');
-  script.textContent = source;
-  (document.head || document.documentElement).appendChild(script);
-  script.parentNode.removeChild(script);
-};
-
-// Synchronously adding WebXR polyfill because
-// some applications for example Three.js WebVR examples
-// check if WebXR is available by synchronously checking
-// navigator.xr , window.XR or whatever when the page is loaded.
-
-loadScript(`
-  (function() {
-    (` + WebXRPolyfillInjection + `)();
-    const polyfill = new CustomWebXRPolyfill();
-    //console.log(this); // to check if loaded
-  })();
-`);
-
 // No synchronous storage and fetch APIs so reluctantly
 // reflecting configuration asynchronously
 

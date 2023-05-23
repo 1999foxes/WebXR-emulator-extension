@@ -1,0 +1,4 @@
+(function () {
+    WebXRPolyfillInjection();
+    new CustomWebXRPolyfill();
+})();

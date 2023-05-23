@@ -36527,6 +36527,7 @@ host this content on a secure origin for the best user experience.
                     this.gamepadInputSources = [];
                     this.stereoEffectEnabled = config.stereoEffect !== undefined ? config.stereoEffect : true;
                     this.div = document.createElement('div');
+                    this.div.id = 'emulated-webxr-container';
                     this.div.style.position = 'absolute';
                     this.div.style.width = '100%';
                     this.div.style.height = '100%';
@@ -37006,7 +37007,6 @@ host this content on a secure origin for the best user experience.
                     });
                   }
                   _notifyEnterImmersive() {
-                    this.div.setAttribute('id', 'webxr-container');
                     dispatchCustomEvent('device-enter-immersive', {});
                   }
                   _notifyLeaveImmersive() {

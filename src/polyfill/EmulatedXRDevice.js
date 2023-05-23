@@ -65,6 +65,7 @@ export default class EmulatedXRDevice extends XRDevice {
     // For case where baseLayer's canvas isn't in document.body
 
     this.div = document.createElement('div');
+    this.div.id = 'emulated-webxr-container';
     this.div.style.position = 'absolute';
     this.div.style.width = '100%';
     this.div.style.height = '100%';
@@ -695,7 +696,6 @@ export default class EmulatedXRDevice extends XRDevice {
   }
 
   _notifyEnterImmersive() {
-    this.div.setAttribute('id', 'webxr-container');
     dispatchCustomEvent('device-enter-immersive', {});
   }
 
